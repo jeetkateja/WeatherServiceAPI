@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/prud_WeatherServiceAPI/output/02-06-2019
+/prud_WeatherServiceAPI/Properties/PublishProfiles

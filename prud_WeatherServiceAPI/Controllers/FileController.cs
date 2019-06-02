@@ -35,12 +35,17 @@ namespace prud_WeatherServiceAPI.Controllers
                     foreach (string file in httpRequest.Files)
                     {
                         var postedFile = httpRequest.Files[file];
+                        var folderPath = HttpContext.Current.Server.MapPath("~/input");
+                        if (!System.IO.Directory.Exists(folderPath))
+                            System.IO.Directory.CreateDirectory(folderPath);
                         var filePath = HttpContext.Current.Server.MapPath("~/input/" + postedFile.FileName);
                         var outputPath = HttpContext.Current.Server.MapPath("~/output/");
                         postedFile.SaveAs(filePath);
 
 
                         reportGen = await _processfile.ProcessFileAsync(filePath, outputPath);
+                        if (reportGen)
+                            System.IO.File.Delete(filePath);
                         
                     }
                 }

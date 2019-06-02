@@ -97,7 +97,7 @@ namespace prud_WeatherService_BL
 
         private bool GenerateOutputFile(string FileName, string outputPath,HttpResponseMessage response )
         {
-            bool sucess = false;
+            bool success = false;
             string responseBody = response.Content.ReadAsStringAsync().Result;
 
             string FolderName = Path.Combine(outputPath, DateTime.Now.ToShortDateString());
@@ -106,16 +106,18 @@ namespace prud_WeatherService_BL
 
             string outputfilepath = Path.Combine(FolderName, FileName+".txt");
 
-            if (!File.Exists(outputfilepath))
+            try
             {
                 File.WriteAllText(outputfilepath, responseBody);
                 success = true;
             }
-            else
+            catch(Exception ex)
+            {
                 success = false;
+            }
 
            
-            return sucess;
+            return success;
         }
 
         private static Dictionary<int,string> GetCityIdandNameFromFile(string InputPath)
